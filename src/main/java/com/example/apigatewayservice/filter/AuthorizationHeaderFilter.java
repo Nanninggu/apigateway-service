@@ -31,7 +31,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     //login -> token -> users (with token) -> header(include token)
     @Override
     public GatewayFilter apply(Config config) {
-        return (exchange, chain) -> {
+        return ((exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
 
             if(!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
@@ -46,7 +46,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             }
 
             return chain.filter(exchange);
-        };
+        });
     }
 
     private boolean isJwtValid(String jwt) {
