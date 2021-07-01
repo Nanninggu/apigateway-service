@@ -51,13 +51,15 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     private boolean isJwtValid(String jwt) {
         boolean returnValue = true;
-
+        //user-service의 헬스체크를 하는거니까 유저서비스의 토큰값과, config-server의 토큰값이 일치해야함.
+        //왜냐하면 con-fig서버의 정보를 먼저 읽어들이고, 후에 유저서비스의 정보를 적용하니까 서로가 일치 해야함.
         String subject = null;
 
         try {
             subject = Jwts.parser().setSigningKey(env.getProperty("token.secret"))
                                 .parseClaimsJws(jwt).getBody()
                                 .getSubject();
+            System.out.println(Jwts.parser().setSigningKey(env.getProperty("token.secret")));
 
         } catch (Exception ex) {
             returnValue = false;
