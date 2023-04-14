@@ -10,11 +10,13 @@ import org.springframework.context.annotation.Bean;
 public class ApigatewayServiceApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ApigatewayServiceApplication.class, args);
 	}
 
 	@Bean
 	public HttpTraceRepository httpTraceRepository() {
+
 		return new InMemoryHttpTraceRepository();
 	}
 }
